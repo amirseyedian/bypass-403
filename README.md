@@ -1,5 +1,3 @@
-Here’s your README file in proper Markdown format:
-
 # 403 Bypass Script
 
 This script attempts to bypass 403 Forbidden access restrictions by appending and modifying URL paths in different ways. It generates a list of URL variations based on encoding, path traversal, and other techniques.
