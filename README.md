@@ -16,6 +16,12 @@ Run the script with the target domain as an argument:
 python bypass_403.py example.com
 ```
 
+Run with custom path. example: /secret/
+
+```shell
+python bypass_403.py example.com /secret/
+```
+
 Features
 • Tries different URL encoding techniques
 • Uses path traversal and directory manipulation
