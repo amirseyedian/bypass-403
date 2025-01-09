@@ -26,55 +26,6 @@ Features
 • Attempts access with special characters and encodings
 • Generates multiple variations of the /admin path
 
-Notes
-• This script is for educational and security testing purposes only.
-• Do not use it on systems without proper authorization.
-
-Example URLs Used in Bypass
-
-Some of the techniques used in this script include:
-• Double slashes:
-
-example.com//admin//
-example.com///admin///
-
-    •	Path traversal:
-
-example.com/admin/../
-example.com/admin/./
-example.com/admin/..;/
-
-    •	URL encoding:
-
-example.com/admin/%2e/
-example.com/admin/%2f
-example.com/admin/%20
-
-    •	Query and fragment manipulation:
-
-example.com/admin?
-example.com/admin??
-example.com/admin#
-example.com/admin/#
-
-    •	File extension tricks:
-
-example.com/admin.json
-example.com/admin.css
-example.com/admin.html
-
-    •	Special character injection:
-
-example.com/;/admin/
-example.com/admin/~
-example.com/admin/\*
-
-    •	Case variation:
-
-example.com/ADMIN
-example.com/ADM+IN
-example.com/\*/admin
-
 By using different encoding techniques and special characters, the script attempts to find alternate paths that may bypass 403 restrictions.
 
 **_Disclaimer: Use this tool responsibly and only on systems where you have permission._**
